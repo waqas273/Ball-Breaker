@@ -5,8 +5,25 @@ const levelButtons = document.querySelectorAll(".level-btn");
 const returnButton = document.getElementById("returnButton");
 const difficultySelect = document.getElementById("difficultySelect");
 
-canvas.width = 800;
-canvas.height = 600;
+// Adjust the canvas size based on the screen width and height (auto-resizing for mobile)
+function setCanvasSize() {
+  const deviceWidth = window.innerWidth;
+  const deviceHeight = window.innerHeight;
+
+  // Set canvas size to 90% of the screen width and height, keeping the aspect ratio
+  const aspectRatio = 800 / 600;
+  if (deviceWidth / deviceHeight > aspectRatio) {
+    canvas.width = deviceHeight * aspectRatio;
+    canvas.height = deviceHeight;
+  } else {
+    canvas.width = deviceWidth;
+    canvas.height = deviceWidth / aspectRatio;
+  }
+}
+
+// Initialize the canvas size on page load and when the window is resized
+window.addEventListener('resize', setCanvasSize);
+setCanvasSize();
 
 let ballX, ballY, ballDX, ballDY, ballRadius;
 const paddleHeight = 10;
